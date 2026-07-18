@@ -1,0 +1,44 @@
+# 网站基础信息
+site_name: 个人工具&技能汇总库
+site_url: https://tiger-tangjj.github.io/tool-collection/
+site_description: 整理AI工具、快捷指令、开发工具、GitHub项目清单
+site_author: 个人沉淀知识库
+
+# 网页主题（好看现代化界面）
+theme:
+  name: material
+  # 浅色/深色模式切换
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: 跟随系统明暗
+    - scheme: default
+      primary: blue-grey
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: 切换深色模式
+    - scheme: slate
+      primary: blue-grey
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: 切换浅色模式
+  # 网页增强功能
+  features:
+    - navigation.tabs # 顶部导航栏
+    - search.suggest # 搜索联想
+    - search.highlight # 搜索关键词高亮
+    - navigation.instant # 页面无刷新跳转
+
+# 顶部导航菜单（后面新增页面在这里加）
+nav:
+  - 首页: index.md
+  - AI工具汇总: ai-tools.md
+  - iPhone快捷指令: shortcut.md
+  - GitHub&开发工具: dev-git.md
+
+# 开启站内搜索
+plugins:
+  - search

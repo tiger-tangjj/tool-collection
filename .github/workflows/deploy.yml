@@ -1,0 +1,48 @@
+name: Deploy MkDocs Site
+# 触发条件：main分支提交代码自动运行
+on:
+  push:
+    branches: [ main ]
+
+# 流水线权限配置
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 构建网站任务
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 拉取仓库全部代码
+      - name: Checkout source
+        uses: actions/checkout@v4
+      # 安装Python环境
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # 安装MkDocs网页生成工具
+      - name: Install MkDocs Material
+        run: pip install mkdocs-material
+      # 把Markdown转为静态网页
+      - name: Build static site
+        run: mkdocs build
+      # 上传生成好的网页文件
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+  # 部署到GitHub Pages
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
